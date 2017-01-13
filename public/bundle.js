@@ -26729,6 +26729,9 @@
 
 	var React = __webpack_require__(8);
 
+	var _require = __webpack_require__(166),
+	    Link = _require.Link;
+
 	var Examples = React.createClass({
 	  displayName: 'Examples',
 
@@ -26737,14 +26740,36 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'h3',
-	        null,
+	        'h1',
+	        { className: 'text-center' },
 	        'Examples'
 	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        'Welcome to the examples page! '
+	        'Here are a few examples to try our!'
+	      ),
+	      React.createElement(
+	        'ol',
+	        null,
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/?location=Boston' },
+	            'Boston, MA'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/?location=SantoDomingo' },
+	            'Santo Domingo, Dominican Republic'
+	          )
+	        )
 	      )
 	    );
 	  }
