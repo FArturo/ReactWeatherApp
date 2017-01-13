@@ -25066,7 +25066,10 @@
 	                isLoading: false
 	            });
 	        }, function (e) {
-	            that.setState({ isLoading: false, errorMessage: e.message });
+	            that.setState({
+	                isLoading: false,
+	                errorMessage: e.message
+	            });
 	        });
 	    },
 	    render: function render() {
@@ -25078,7 +25081,6 @@
 
 
 	        function renderMessage() {
-	            debugger;
 
 	            if (isLoading) {
 	                return React.createElement(
@@ -25092,11 +25094,11 @@
 	        }
 
 	        function renderError() {
+
 	            if (typeof errorMessage === 'string') {
-	                return React.createElement(ErrorModal, null);
+	                return React.createElement(ErrorModal, { message: errorMessage });
 	            }
 	        }
-
 	        return React.createElement(
 	            'div',
 	            null,
@@ -25106,7 +25108,8 @@
 	                'Weather Component'
 	            ),
 	            React.createElement(WeatherForm, { onSearch: this.handleSearch }),
-	            renderMessage()
+	            renderMessage(),
+	            renderError()
 	        );
 	    }
 	});
@@ -26709,42 +26712,58 @@
 
 	var React = __webpack_require__(8);
 
-	var ErrorModel = React.createClass({
-	    displayName: 'ErrorModel',
+	var ErrorModal = React.createClass({
+	    displayName: 'ErrorModal',
+
+
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            title: 'Error'
+	        };
+	    },
+
+	    propTypes: {
+	        title: React.PropTypes.string,
+	        message: React.PropTypes.string.isRequired
+	    },
 
 	    componentDidMount: function componentDidMount() {
-	        var modal = new Foundation.Reveal($('#error-model'));
-
+	        var modal = new Foundation.Reveal($('#error-modal'));
 	        modal.open();
 	    },
 	    render: function render() {
+	        var _props = this.props,
+	            title = _props.title,
+	            message = _props.message;
+
+
 	        return React.createElement(
 	            'div',
-	            { className: 'reveal tiny text-center', id: 'error-modal', 'data-reveal': true },
+	            { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
 	            React.createElement(
 	                'h4',
 	                null,
-	                'Some Title'
+	                title
 	            ),
 	            React.createElement(
 	                'p',
 	                null,
-	                'Our error message!'
+	                message
 	            ),
 	            React.createElement(
 	                'p',
 	                null,
 	                React.createElement(
 	                    'button',
-	                    { className: 'button hollow', 'data-close': true },
-	                    'Okay'
+	                    { className: 'button hollow', 'data-close': '' },
+	                    'Close'
 	                )
 	            )
 	        );
 	    }
 	});
 
-	module.exports = ErrorModel;
+	module.exports = ErrorModal;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
